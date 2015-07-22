@@ -1,0 +1,33 @@
+#!/bin/bash
+DOCKER_IMAGE='jess/imagemagick'
+SRC_DIR=/Users/dbogen/Downloads
+MOUNT_DIR=/dl
+
+function die () {
+  echo "ERROR:  $1"
+  exit 1
+}
+
+if [ $# -ne 2 ]; then
+    echo  "Usage:  $0 <file_to_convert> <file_to_create>"
+    exit 2
+fi
+
+B2D_STATUS=`boot2docker status`
+if [[ ! $B2D_STATUS == running ]];  then
+  boot2docker start
+  if [[ $? -ne 0 ]]; then
+    die "Could not start boot2docker."
+  fi
+fi
+
+if [[ ! $DOCKER_HOST =~ ^tcp.* ]]; then
+    eval $(boot2docker shellinit 2> /dev/null )
+    if [[ $? -ne 0 ]]; then
+      die "Could not set boot2docker shell variables."
+    fi
+fi
+
+docker run --rm=true -v $SRC_DIR:$MOUNT_DIR $DOCKER_IMAGE \
+  /usr/bin/convert \
+  $MOUNT_DIR/$1 $MOUNT_DIR/$2
