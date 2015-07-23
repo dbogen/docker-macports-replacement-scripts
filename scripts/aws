@@ -1,7 +1,7 @@
 #!/bin/bash
 DOCKER_IMAGE='jess/awscli'
 MOUNT_DIR=/root/.aws
-SOURCE_DIR=/Users/dbogen/.aws
+SOURCE_DIR=${HOME}/.aws
 
 function die () {
   echo "ERROR:  $1"

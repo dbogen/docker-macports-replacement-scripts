@@ -1,6 +1,6 @@
 #!/bin/bash
 DOCKER_IMAGE='jess/imagemagick'
-SRC_DIR=/Users/dbogen/Downloads
+SRC_DIR=${HOME}/Downloads
 MOUNT_DIR=/dl
 
 function die () {

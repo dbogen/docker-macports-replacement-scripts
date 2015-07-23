@@ -1,6 +1,6 @@
 #!/bin/bash
 DOCKER_IMAGE='ubuntu:latest'
-SOURCE_DIR=/Users/dbogen/.gnupg
+SOURCE_DIR=${HOME}/.gnupg
 MOUNT_DIR=/root/.gnupg
 
 function die () {
