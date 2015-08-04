@@ -1,5 +1,5 @@
 #!/bin/bash
-DOCKER_IMAGE='jess/imagemagick'
+DOCKER_IMAGE='convert:latest'
 SRC_DIR=${HOME}/Downloads
 MOUNT_DIR=/dl
 
