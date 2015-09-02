@@ -1,0 +1,38 @@
+#
+# Functions used by all the scripts
+#
+
+function die () {
+  echo "ERROR:  $1"
+  exit 1
+}
+
+function check_or_init_docker_machine_running () { 
+
+DOCKER_MACHINE_STATUS=$(docker-machine ls | grep virtualbox | awk '{print $3}')
+if [[ ! $DOCKER_MACHINE_STATUS == Running ]];  then
+  docker-machine start default
+  if [[ $? -ne 0 ]]; then
+    die "Could not start docker-machine."
+  fi
+fi
+
+}
+
+function check_or_init_shell_env () {
+
+if [[ ! $DOCKER_HOST =~ ^tcp.* ]]; then
+    eval $(docker-machine env default 2> /dev/null )
+    if [[ $? -ne 0 ]]; then
+      die "Could not set docker-machine shell variables."
+    fi
+fi
+
+}
+
+function setup_environment () {
+  
+  check_or_init_docker_machine_running
+  check_or_init_shell_env
+
+}
