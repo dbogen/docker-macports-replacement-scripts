@@ -2,6 +2,10 @@
 # Functions used by all the scripts
 #
 
+DM_NAME=default
+DM_DRIVER=virtualbox
+DM_BINARY=/usr/local/bin/docker-machine
+
 function die () {
   echo "ERROR:  $1"
   exit 1
@@ -9,9 +13,9 @@ function die () {
 
 function check_or_init_docker_machine_running () { 
 
-DOCKER_MACHINE_STATUS=$(docker-machine ls | grep virtualbox | awk '{print $3}')
-if [[ ! $DOCKER_MACHINE_STATUS == Running ]];  then
-  docker-machine start default
+DM_STATUS=$($DM_BINARY ls $DM_NAME | grep $DM_DRIVER | awk '{print $3}')
+if [[ ! $DM_STATUS == Running ]];  then
+  $DM_BINARY start default
   if [[ $? -ne 0 ]]; then
     die "Could not start docker-machine."
   fi
@@ -22,7 +26,7 @@ fi
 function check_or_init_shell_env () {
 
 if [[ ! $DOCKER_HOST =~ ^tcp.* ]]; then
-    eval $(docker-machine env default 2> /dev/null )
+    eval $($DM_BINARY env $DM_NAME 2> /dev/null )
     if [[ $? -ne 0 ]]; then
       die "Could not set docker-machine shell variables."
     fi
