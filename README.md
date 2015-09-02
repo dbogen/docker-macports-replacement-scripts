@@ -32,6 +32,6 @@ The functions file assumes that your docker-machine image is named default.  If 
 
 The functions file also assumes that your docker-machine image uses virtualbox as the driver.  If that is not true, you'll need to change it in the functions file.
 
-# Comments and concernts
+# Comments and Concerns
 
 For comments and concerns, you can contact me via GitHub or on [Twitter](https://twitter.com/d_bogen).
