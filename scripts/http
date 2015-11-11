@@ -1,0 +1,7 @@
+#!/bin/bash
+DOCKER_IMAGE='jess/httpie'
+
+. docker-machine-functions
+setup_environment
+
+docker run --rm=true $DOCKER_IMAGE "$@"
